@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import Axios from "axios";
 
 class SearchTodo extends Component {
-  
+
   state = {
     tmpdata: [],
   };
@@ -14,17 +14,18 @@ class SearchTodo extends Component {
       date: Date().toLocaleString('en-US'),
     });
   };
-  
+
 
   handleSubmit = (e) => {
     //Begin Here
-    e.preventDefault();  
+    e.preventDefault();
     // HTTP Client to send a GET request
     Axios({
       method: "GET",
-      url: "http://localhost:8080/items/search",
+      url: "http://localhost:8080/get/searchitem",
+      withCredentials: true,
       headers: {
-        "Content-Type": "application/json" 
+        "Content-Type": "application/json"
       },
       params: {
         taskname: this.state.content
@@ -37,7 +38,7 @@ class SearchTodo extends Component {
       //console.log(this.state.tmpdata);
     });
   };
-  
+
   render() {
     return (
       <div>
@@ -48,11 +49,11 @@ class SearchTodo extends Component {
             variant="outlined"
             onChange={this.handleChange}
             value={this.state.value}
-          /> 
+          />
           <Button
             id="search-item-button"
             name='submit'
-            style={{ marginLeft: "10px",marginTop:10 }}
+            style={{ marginLeft: "10px", marginTop: 10 }}
             onClick={this.handleSubmit}
             variant="contained"
             color="primary"
